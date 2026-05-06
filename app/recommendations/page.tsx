@@ -95,10 +95,11 @@ export default async function RecommendationsPage({
 
               {/* 점수 */}
               <div className="text-right shrink-0">
-                <p className="text-4xl font-extrabold text-blue-700">{match.score}점</p>
-                <span className={`text-base px-3 py-1 rounded-full font-medium ${scoreBadgeColor(match.score)}`}>
+                <p className="text-4xl font-extrabold text-blue-700">{match.score}<span className="text-2xl">점</span></p>
+                <span className={`text-sm px-3 py-1 rounded-full font-medium ${scoreBadgeColor(match.score)}`}>
                   {scoreLabel(match.score)}
                 </span>
+                <p className="text-xs text-gray-400 mt-1">최대 6점</p>
               </div>
             </div>
           ))}

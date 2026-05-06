@@ -3,13 +3,11 @@
 import { redirect } from 'next/navigation'
 import { revalidatePath } from 'next/cache'
 import { supabase } from '@/lib/supabase'
-import { calculateScore } from '@/lib/matching'
-import type { Job, Senior } from '@/lib/supabase'
 
 export type ActionState = { error: string } | { success: string } | null
 
 // ──────────────────────────────────────────
-// 시니어 등록 + 자동 매칭
+// 시니어 등록 + 자동 매칭 (RPC)
 // ──────────────────────────────────────────
 export async function registerSenior(
   _prevState: ActionState,
@@ -37,28 +35,13 @@ export async function registerSenior(
     return { error: '등록 중 오류가 발생했습니다. 잠시 후 다시 시도해 주세요.' }
   }
 
-  const { data: jobs } = await supabase.from('jobs').select('*')
-
-  if (jobs && jobs.length > 0) {
-    const matches = (jobs as Job[])
-      .map((job) => ({
-        senior_id: senior.id,
-        job_id: job.id,
-        score: calculateScore(senior as Senior, job),
-        status: 'unmatched',
-      }))
-      .filter((m) => m.score > 0)
-
-    if (matches.length > 0) {
-      await supabase.from('matches').insert(matches)
-    }
-  }
+  await supabase.rpc('recalculate_matches_for_senior', { p_senior_id: senior.id })
 
   redirect(`/recommendations?senior_id=${senior.id}&name=${encodeURIComponent(name)}`)
 }
 
 // ──────────────────────────────────────────
-// 일자리 등록
+// 일자리 등록 + 자동 매칭 (RPC)
 // ──────────────────────────────────────────
 export async function addJob(
   _prevState: ActionState,
@@ -86,22 +69,7 @@ export async function addJob(
     return { error: '일자리 등록 중 오류가 발생했습니다.' }
   }
 
-  // 기존 등록된 시니어와 즉시 매칭
-  const { data: seniors } = await supabase.from('seniors').select('*')
-  if (seniors && seniors.length > 0) {
-    const matches = (seniors as Senior[])
-      .map((senior) => ({
-        senior_id: senior.id,
-        job_id: newJob.id,
-        score: calculateScore(senior, newJob as Job),
-        status: 'unmatched',
-      }))
-      .filter((m) => m.score > 0)
-
-    if (matches.length > 0) {
-      await supabase.from('matches').insert(matches)
-    }
-  }
+  await supabase.rpc('recalculate_matches_for_job', { p_job_id: newJob.id })
 
   revalidatePath('/jobs')
   revalidatePath('/admin')

@@ -1,29 +1,24 @@
 import type { Senior, Job } from './supabase'
 
-/**
- * 매칭 점수 계산 (최대 100점)
- * - 지역 일치:       +50점
- * - 직종 일치:       +30점
- * - 경력 요건 충족:  +20점
- */
+// 최대 6점: 지역(+3) + 직종(+2) + 경력(+1)
 export function calculateScore(senior: Senior, job: Job): number {
   let score = 0
-  if (senior.region === job.region) score += 50
-  if (senior.desired_job === job.job_type) score += 30
-  if (senior.career_years >= job.required_career) score += 20
+  if (senior.region === job.region) score += 3
+  if (senior.desired_job === job.job_type) score += 2
+  if (senior.career_years >= job.required_career) score += 1
   return score
 }
 
 export function scoreLabel(score: number): string {
-  if (score >= 90) return '매우 적합'
-  if (score >= 60) return '적합'
-  if (score >= 30) return '보통'
+  if (score >= 6) return '완전 일치'
+  if (score >= 4) return '적합'
+  if (score >= 2) return '부분 일치'
   return '낮음'
 }
 
+// 6점=금색, 4-5점=녹색, 1-3점=회색
 export function scoreBadgeColor(score: number): string {
-  if (score >= 90) return 'bg-green-100 text-green-800'
-  if (score >= 60) return 'bg-blue-100 text-blue-800'
-  if (score >= 30) return 'bg-yellow-100 text-yellow-800'
+  if (score >= 6) return 'bg-yellow-100 text-yellow-800 border border-yellow-400'
+  if (score >= 4) return 'bg-green-100 text-green-800'
   return 'bg-gray-100 text-gray-600'
 }
