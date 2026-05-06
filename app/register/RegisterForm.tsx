@@ -11,7 +11,7 @@ export default function RegisterForm() {
 
   return (
     <form action={action} className="bg-white rounded-2xl shadow-md p-8 flex flex-col gap-7">
-      {state?.error && (
+      {state && 'error' in state && (
         <div className="bg-red-50 border-2 border-red-300 text-red-800 rounded-xl px-5 py-4 text-xl font-medium">
           ⚠️ {state.error}
         </div>
