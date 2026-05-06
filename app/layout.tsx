@@ -26,6 +26,9 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
               <Link href="/recommendations" className="hover:text-yellow-300 transition-colors">
                 추천 일자리
               </Link>
+              <Link href="/jobs" className="hover:text-yellow-300 transition-colors">
+                일자리 관리
+              </Link>
               <Link href="/admin" className="hover:text-yellow-300 transition-colors">
                 담당자
               </Link>
