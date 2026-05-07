@@ -1,3 +1,5 @@
+export const dynamic = 'force-dynamic'
+
 import { supabase } from '@/lib/supabase'
 import { updateMatchStatus } from '@/app/actions'
 import { scoreBadgeColor, scoreLabel } from '@/lib/matching'
