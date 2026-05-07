@@ -16,9 +16,9 @@ type MatchRow = {
 export default async function RecommendationsPage({
   searchParams,
 }: {
-  searchParams: Promise<{ senior_id?: string; name?: string }>
+  searchParams: Promise<{ senior_id?: string; name?: string; registered?: string }>
 }) {
-  const { senior_id, name } = await searchParams
+  const { senior_id, name, registered } = await searchParams
 
   if (!senior_id) {
     return (
@@ -46,6 +46,12 @@ export default async function RecommendationsPage({
 
   return (
     <div className="max-w-3xl mx-auto">
+      {registered === 'true' && (
+        <div className="bg-green-50 border-2 border-green-300 text-green-800 rounded-xl px-6 py-4 mb-6 text-xl font-medium">
+          ✅ 등록이 완료되었습니다. 아래에서 추천 일자리를 확인하세요.
+        </div>
+      )}
+
       <div className="mb-8">
         <h1 className="text-4xl font-bold text-gray-900 mb-2">
           {name ? `${name}님의 ` : ''}추천 일자리
@@ -58,7 +64,7 @@ export default async function RecommendationsPage({
       {typedMatches.length === 0 ? (
         <div className="bg-yellow-50 border-2 border-yellow-300 rounded-2xl px-8 py-12 text-center">
           <p className="text-4xl mb-4">😔</p>
-          <p className="text-2xl font-bold text-yellow-800 mb-2">아직 매칭된 일자리가 없습니다</p>
+          <p className="text-2xl font-bold text-yellow-800 mb-2">현재 매칭되는 일자리가 없습니다</p>
           <p className="text-xl text-yellow-700">
             등록하신 지역·직종과 맞는 일자리가 생기면 바로 안내해 드립니다.
           </p>

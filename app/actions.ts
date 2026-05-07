@@ -37,7 +37,7 @@ export async function registerSenior(
 
   await supabase.rpc('recalculate_matches_for_senior', { p_senior_id: senior.id })
 
-  redirect(`/recommendations?senior_id=${senior.id}&name=${encodeURIComponent(name)}`)
+  redirect(`/recommendations?senior_id=${senior.id}&name=${encodeURIComponent(name)}&registered=true`)
 }
 
 // ──────────────────────────────────────────
