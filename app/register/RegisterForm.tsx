@@ -93,6 +93,22 @@ export default function RegisterForm() {
         <p className="text-lg text-gray-400">경력이 없으면 0을 입력하세요.</p>
       </div>
 
+      {/* 연락처 */}
+      <div className="flex flex-col gap-1">
+        <label htmlFor="phone" className="text-xl font-semibold text-gray-800">
+          연락처 <span className="text-red-500">*</span>
+        </label>
+        <p className="text-lg text-gray-500">담당자가 연락드릴 전화번호를 입력해 주세요.</p>
+        <input
+          id="phone"
+          name="phone"
+          type="tel"
+          placeholder="010-0000-0000"
+          required
+          className="border-2 border-gray-300 rounded-xl px-5 py-4 text-xl focus:outline-none focus:border-blue-500 min-h-[52px]"
+        />
+      </div>
+
       <button
         type="submit"
         disabled={isPending}

@@ -93,7 +93,7 @@ export default async function AdminPage() {
           <table className="w-full text-left">
             <thead className="bg-gray-50 border-b border-gray-200">
               <tr>
-                {['이름', '지역', '희망 직종', '최고 점수', '상태', '액션'].map((h) => (
+                {['이름', '연락처', '지역', '희망 직종', '최고 점수', '상태', '액션'].map((h) => (
                   <th key={h} className="px-5 py-4 text-base font-bold text-gray-700">{h}</th>
                 ))}
               </tr>
@@ -109,6 +109,11 @@ export default async function AdminPage() {
                 return (
                   <tr key={row.id} className="hover:bg-gray-50 transition-colors">
                     <td className="px-5 py-4 text-lg font-semibold text-gray-900">{row.name}</td>
+                    <td className="px-5 py-4 text-base text-gray-600">
+                      {row.phone
+                        ? <a href={`tel:${row.phone}`} className="text-blue-600 hover:underline">{row.phone}</a>
+                        : <span className="text-gray-300">—</span>}
+                    </td>
                     <td className="px-5 py-4 text-base text-gray-600">{row.region}</td>
                     <td className="px-5 py-4 text-base text-gray-600">{row.desired_job}</td>
                     <td className="px-5 py-4">
@@ -127,7 +132,7 @@ export default async function AdminPage() {
                     </td>
                     <td className="px-5 py-4 flex items-center gap-2 flex-wrap">
                       <Link
-                        href={`/recommendations?senior_id=${row.id}&name=${encodeURIComponent(row.name)}`}
+                        href={`/recommendations?senior_id=${row.id}&name=${encodeURIComponent(row.name)}&from=admin`}
                         className="text-sm px-4 py-2 rounded-lg bg-blue-50 text-blue-700 hover:bg-blue-100 font-medium transition-colors"
                       >
                         상세 보기

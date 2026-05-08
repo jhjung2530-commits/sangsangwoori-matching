@@ -17,8 +17,9 @@ export async function registerSenior(
   const region = formData.get('region') as string
   const desired_job = formData.get('desired_job') as string
   const career_years = parseInt(formData.get('career_years') as string)
+  const phone = (formData.get('phone') as string | null)?.trim() ?? ''
 
-  if (!name || !region || !desired_job || isNaN(career_years)) {
+  if (!name || !region || !desired_job || isNaN(career_years) || !phone) {
     return { error: '모든 항목을 빠짐없이 입력해 주세요.' }
   }
   if (career_years < 0 || career_years > 60) {
@@ -27,7 +28,7 @@ export async function registerSenior(
 
   const { data: senior, error: seniorError } = await supabase
     .from('seniors')
-    .insert({ name, region, desired_job, career_years })
+    .insert({ name, region, desired_job, career_years, phone })
     .select()
     .single()
 

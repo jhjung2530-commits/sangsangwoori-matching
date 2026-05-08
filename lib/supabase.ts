@@ -11,6 +11,7 @@ export type Senior = {
   region: string
   desired_job: string
   career_years: number
+  phone?: string
   created_at: string
 }
 

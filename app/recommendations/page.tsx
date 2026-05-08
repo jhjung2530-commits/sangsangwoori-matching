@@ -16,9 +16,9 @@ type MatchRow = {
 export default async function RecommendationsPage({
   searchParams,
 }: {
-  searchParams: Promise<{ senior_id?: string; name?: string; registered?: string }>
+  searchParams: Promise<{ senior_id?: string; name?: string; registered?: string; from?: string }>
 }) {
-  const { senior_id, name, registered } = await searchParams
+  const { senior_id, name, registered, from } = await searchParams
 
   if (!senior_id) {
     return (
@@ -117,7 +117,15 @@ export default async function RecommendationsPage({
         </div>
       )}
 
-      <div className="mt-10 text-center">
+      <div className="mt-10 flex flex-col items-center gap-4">
+        {from === 'admin' && (
+          <Link
+            href="/admin"
+            className="text-xl text-gray-600 hover:text-gray-900 font-medium"
+          >
+            ← 어드민으로 돌아가기
+          </Link>
+        )}
         <Link
           href="/register"
           className="text-xl text-blue-600 underline hover:text-blue-800"
