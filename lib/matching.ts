@@ -27,9 +27,9 @@ export function calculateScore(senior: Senior, job: Job): number {
 }
 
 export function scoreLabel(score: number): string {
-  if (score >= 6) return '완전 일치'
+  if (score >= 6) return '매우 적합'
   if (score >= 4) return '적합'
-  if (score >= 2) return '부분 일치'
+  if (score >= 2) return '보통'
   return '낮음'
 }
 

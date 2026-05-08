@@ -10,7 +10,7 @@ export default function RegisterForm() {
   const [state, action, isPending] = useActionState(registerSenior, null)
 
   return (
-    <form action={action} className="bg-white rounded-2xl shadow-md p-8 flex flex-col gap-7">
+    <form action={action} className="bg-white rounded-2xl shadow-md p-8 flex flex-col gap-8">
       {state && 'error' in state && (
         <div className="bg-red-50 border-2 border-red-300 text-red-800 rounded-xl px-5 py-4 text-xl font-medium">
           ⚠️ {state.error}
@@ -18,30 +18,32 @@ export default function RegisterForm() {
       )}
 
       {/* 이름 */}
-      <div className="flex flex-col gap-2">
+      <div className="flex flex-col gap-1">
         <label htmlFor="name" className="text-xl font-semibold text-gray-800">
           이름 <span className="text-red-500">*</span>
         </label>
+        <p className="text-lg text-gray-500">성함을 입력해 주세요.</p>
         <input
           id="name"
           name="name"
           type="text"
           placeholder="홍길동"
           required
-          className="border-2 border-gray-300 rounded-xl px-5 py-4 text-xl focus:outline-none focus:border-blue-500"
+          className="border-2 border-gray-300 rounded-xl px-5 py-4 text-xl focus:outline-none focus:border-blue-500 min-h-[52px]"
         />
       </div>
 
       {/* 지역 */}
-      <div className="flex flex-col gap-2">
+      <div className="flex flex-col gap-1">
         <label htmlFor="region" className="text-xl font-semibold text-gray-800">
           거주 지역 <span className="text-red-500">*</span>
         </label>
+        <p className="text-lg text-gray-500">어디에서 일하고 싶으세요?</p>
         <select
           id="region"
           name="region"
           required
-          className="border-2 border-gray-300 rounded-xl px-5 py-4 text-xl focus:outline-none focus:border-blue-500 bg-white"
+          className="border-2 border-gray-300 rounded-xl px-5 py-4 text-xl focus:outline-none focus:border-blue-500 bg-white min-h-[52px]"
         >
           <option value="">지역 선택</option>
           {REGIONS.map((r) => (
@@ -51,15 +53,16 @@ export default function RegisterForm() {
       </div>
 
       {/* 희망 직종 */}
-      <div className="flex flex-col gap-2">
+      <div className="flex flex-col gap-1">
         <label htmlFor="desired_job" className="text-xl font-semibold text-gray-800">
           희망 직종 <span className="text-red-500">*</span>
         </label>
+        <p className="text-lg text-gray-500">어떤 일을 하고 싶으세요?</p>
         <select
           id="desired_job"
           name="desired_job"
           required
-          className="border-2 border-gray-300 rounded-xl px-5 py-4 text-xl focus:outline-none focus:border-blue-500 bg-white"
+          className="border-2 border-gray-300 rounded-xl px-5 py-4 text-xl focus:outline-none focus:border-blue-500 bg-white min-h-[52px]"
         >
           <option value="">직종 선택</option>
           {JOB_TYPES.map((j) => (
@@ -69,10 +72,11 @@ export default function RegisterForm() {
       </div>
 
       {/* 경력 */}
-      <div className="flex flex-col gap-2">
+      <div className="flex flex-col gap-1">
         <label htmlFor="career_years" className="text-xl font-semibold text-gray-800">
           총 경력 <span className="text-red-500">*</span>
         </label>
+        <p className="text-lg text-gray-500">지금까지 일한 기간이 얼마나 되세요?</p>
         <div className="flex items-center gap-3">
           <input
             id="career_years"
@@ -82,7 +86,7 @@ export default function RegisterForm() {
             max={60}
             placeholder="0"
             required
-            className="border-2 border-gray-300 rounded-xl px-5 py-4 text-xl focus:outline-none focus:border-blue-500 w-40"
+            className="border-2 border-gray-300 rounded-xl px-5 py-4 text-xl focus:outline-none focus:border-blue-500 w-40 min-h-[52px]"
           />
           <span className="text-xl text-gray-600">년</span>
         </div>
@@ -92,9 +96,9 @@ export default function RegisterForm() {
       <button
         type="submit"
         disabled={isPending}
-        className="mt-4 bg-blue-700 hover:bg-blue-800 active:bg-blue-900 disabled:bg-blue-400 text-white text-2xl font-bold rounded-xl py-5 transition-colors"
+        className="mt-2 bg-blue-700 hover:bg-blue-800 active:bg-blue-900 disabled:bg-blue-400 text-white text-2xl font-bold rounded-xl min-h-[56px] py-4 transition-colors"
       >
-        {isPending ? '⏳ 매칭 중...' : '프로필 등록하기'}
+        {isPending ? '⏳ 매칭 중...' : '등록하기'}
       </button>
     </form>
   )

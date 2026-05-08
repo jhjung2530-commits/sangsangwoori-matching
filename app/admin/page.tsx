@@ -57,9 +57,9 @@ export default async function AdminPage() {
   const assigned  = rows.filter((r) => r.seniorStatus === '배정완료')
 
   const summaryCards = [
-    { label: '미매칭',  count: unmatched.length, border: 'border-gray-300',  bg: 'bg-gray-50',   badge: 'bg-gray-100 text-gray-600' },
-    { label: '매칭 대기', count: pending.length,   border: 'border-yellow-300', bg: 'bg-yellow-50', badge: 'bg-yellow-100 text-yellow-800' },
-    { label: '배정 완료', count: assigned.length,  border: 'border-green-300',  bg: 'bg-green-50',  badge: 'bg-green-100 text-green-800' },
+    { label: '미매칭',   icon: '⚠️', count: unmatched.length, border: 'border-gray-300',   bg: 'bg-gray-50',   badge: 'bg-gray-100 text-gray-600' },
+    { label: '매칭 대기', icon: '🕐', count: pending.length,   border: 'border-yellow-300', bg: 'bg-yellow-50', badge: 'bg-yellow-100 text-yellow-800' },
+    { label: '배정 완료', icon: '✅', count: assigned.length,  border: 'border-green-300',  bg: 'bg-green-50',  badge: 'bg-green-100 text-green-800' },
   ]
 
   return (
@@ -71,10 +71,10 @@ export default async function AdminPage() {
 
       {/* 집계 카드 3개 */}
       <div className="grid grid-cols-3 gap-4 mb-10">
-        {summaryCards.map(({ label, count, border, bg, badge }) => (
+        {summaryCards.map(({ label, icon, count, border, bg, badge }) => (
           <div key={label} className={`rounded-2xl border-2 ${border} ${bg} px-6 py-5 shadow-sm`}>
-            <span className={`inline-block px-3 py-1 rounded-full text-base font-bold mb-3 ${badge}`}>
-              {label}
+            <span className={`inline-flex items-center gap-1 px-3 py-1 rounded-full text-base font-bold mb-3 ${badge}`}>
+              <span>{icon}</span>{label}
             </span>
             <p className="text-5xl font-extrabold text-gray-900">{count}</p>
             <p className="text-lg text-gray-500 mt-1">명</p>
